@@ -4,18 +4,16 @@ module Mutations
   module Books
     RSpec.describe UpdateBook, type: :request do
       describe ".resolve" do
+        let(:book) { create(:book, title: "ABC", genre: "Mystery") }
+
         it "updates a book and returns the updated book" do
-          book = create(:book, title: "ABC", genre: "Mystery")
-
-          post "/graphql", params: { query: query(id: book.id) }
-
-          data = JSON.parse(response.body)["data"]["updateBook"]
+          graphql_request(query(book.id))
 
           expect(book.reload).to have_attributes(
             title: "XYZ",
             genre: "Horror"
           )
-          expect(data).to include(
+          expect(json_response["data"]["updateBook"]).to include(
             "id" => book.id.to_s,
             "title" => "XYZ",
             "publicationDate" => book.publication_date,
@@ -27,7 +25,7 @@ module Mutations
         end
       end
 
-      def query(id:)
+      def query(id)
         <<~GQL
           mutation {
             updateBook(

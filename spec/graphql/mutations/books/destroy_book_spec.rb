@@ -4,15 +4,13 @@ module Mutations
   module Books
     RSpec.describe DestroyBook, type: :request do
       describe ".resolve" do
+        let(:book) { create(:book) }
+
         it "deletes a book and returns the deleted book" do
-          book = create(:book)
-
-          post "/graphql", params: { query: query(id: book.id) }
-
-          data = JSON.parse(response.body)["data"]["destroyBook"]
+          graphql_request(query(book.id))
 
           expect { Book.find(book.id) }.to raise_error(ActiveRecord::RecordNotFound)
-          expect(data).to include(
+          expect(json_response["data"]["destroyBook"]).to include(
             "id" => book.id.to_s,
             "title" => book.title,
             "publicationDate" => book.publication_date,
@@ -24,7 +22,7 @@ module Mutations
         end
       end
 
-      def query(id:)
+      def query(id)
         <<~GQL
           mutation {
             destroyBook(

@@ -5,13 +5,13 @@ module Mutations
     RSpec.describe CreateAuthor, type: :request do
       describe ".resolve" do
         it "creates an author" do
-          expect { make_request }.to change { Author.count }.by(1)
+          expect { graphql_request(query) }.to change { Author.count }.by(1)
         end
 
         it "returns the created author" do
-          make_request
-          data = JSON.parse(response.body)["data"]["createAuthor"]
-          expect(data).to include(
+          graphql_request(query)
+
+          expect(json_response["data"]["createAuthor"]).to include(
             "id" => an_instance_of(String),
             "firstName" => "John",
             "lastName" => "Doe",
@@ -19,10 +19,6 @@ module Mutations
             "dateOfBirth" => "1980-01-02"
           )
         end
-      end
-
-      def make_request
-        post "/graphql", params: { query: query }
       end
 
       def query

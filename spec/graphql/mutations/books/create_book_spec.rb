@@ -7,17 +7,15 @@ module Mutations
 
       describe ".resolve" do
         it "creates a book" do
-
           expect {
-            post '/graphql', params: { query: query(author_id: author.id) }
+            graphql_request(query(author.id))
           }.to change { Book.count }.by(1)
         end
 
         it "returns a book" do
-          post "/graphql", params: { query: query(author_id: author.id) }
-          data = JSON.parse(response.body)["data"]["createBook"]
+          graphql_request(query(author.id))
 
-          expect(data).to include(
+          expect(json_response["data"]["createBook"]).to include(
             "id" => an_instance_of(String),
             "title" => "Tripwire",
             "publicationDate" => 1999,
@@ -29,7 +27,7 @@ module Mutations
         end
       end
 
-      def query(author_id:)
+      def query(author_id)
         <<~GQL
           mutation {
             createBook(

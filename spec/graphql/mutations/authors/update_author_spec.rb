@@ -7,16 +7,15 @@ module Mutations
         let(:author) { create(:author, first_name: "Jon", last_name: "Snow") }
 
         it "updates an author and returns the updated author" do
-          post "/graphql", params: { query: query(author.id) }
+          graphql_request(query(author.id))
 
-          data = JSON.parse(response.body)["data"]["updateAuthor"]
           expect(author.reload).to have_attributes(
             id: author.id,
             first_name: "John",
             last_name: "Doe"
           )
 
-          expect(data).to include(
+          expect(json_response["data"]["updateAuthor"]).to include(
             "id" => author.id.to_s,
             "firstName" => "John",
             "lastName" => "Doe",

@@ -7,12 +7,10 @@ module Mutations
         let(:author) { create(:author) }
 
         it "deletes an author and returns the deleted author" do
-          post "/graphql", params: { query: query(author.id) }
-
-          data = JSON.parse(response.body)["data"]["destroyAuthor"]
+          graphql_request(query(author.id))
 
           expect { Author.find(author.id) }.to raise_error(ActiveRecord::RecordNotFound)
-          expect(data).to include(
+          expect(json_response["data"]["destroyAuthor"]).to include(
             "id" => author.id.to_s,
             "firstName" => author.first_name,
             "lastName" => author.last_name,
