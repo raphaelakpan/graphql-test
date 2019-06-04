@@ -1,7 +1,7 @@
 module Queries
   module Authors
     class Author < Queries::BaseQuery
-      description 'Finds an author by ID'
+      description "Finds an author by ID"
 
       argument :id, ID, required: true
 

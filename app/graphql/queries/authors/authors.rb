@@ -1,7 +1,7 @@
 module Queries
   module Authors
     class Authors < Queries::BaseQuery
-      description 'Finds all authors'
+      description "Finds all authors"
 
       type [Types::Custom::Author], null: false
 

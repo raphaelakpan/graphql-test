@@ -1,6 +1,8 @@
 module Mutations
   module Books
     class CreateBook < ::Mutations::BaseMutation
+      description "Creates a book for an author"
+
       argument :title, String, required: true
       argument :author_id, Integer, required: true
       argument :publication_date, Integer, required: true

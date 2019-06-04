@@ -1,6 +1,8 @@
 module Mutations
   module Books
     class UpdateBook < ::Mutations::BaseMutation
+      description "Updates a book"
+
       argument :id, Integer, required: true
       argument :title, String, required: false
       argument :publication_date, Integer, required: false

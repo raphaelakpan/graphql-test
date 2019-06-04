@@ -3,22 +3,7 @@ module Types
     field :author, resolver: Queries::Authors::Author
     field :authors, resolver: Queries::Authors::Authors
 
-    field :books, [Types::Custom::Book], null: false do
-      description 'Find all authors'
-    end
-
-    field :book, Types::Custom::Book, null: false do
-      description 'Find a author by ID'
-      argument :id, ID, required: true
-    end
-
-
-    def books
-      Book.all
-    end
-
-    def book(id:)
-      Book.find(id)
-    end
+    field :book, resolver: Queries::Books::Book
+    field :books, resolver: Queries::Books::Books
   end
 end
