@@ -1,13 +1,7 @@
 module Types
   class QueryType < Types::BaseObject
-    field :authors, [Types::Custom::Author], null: false do
-      description 'Find all authors'
-    end
-
-    field :author, Types::Custom::Author, null: false do
-      description 'Find a author by ID'
-      argument :id, ID, required: true
-    end
+    field :author, resolver: Queries::Authors::Author
+    field :authors, resolver: Queries::Authors::Authors
 
     field :books, [Types::Custom::Book], null: false do
       description 'Find all authors'
@@ -18,13 +12,6 @@ module Types
       argument :id, ID, required: true
     end
 
-    def authors
-      Author.all
-    end
-
-    def author(id:)
-      Author.find(id)
-    end
 
     def books
       Book.all
