@@ -9,5 +9,9 @@ module Types
     field :create_author, mutation: Mutations::Authors::CreateAuthor
     field :update_author, mutation: Mutations::Authors::UpdateAuthor
     field :destroy_author, mutation: Mutations::Authors::DestroyAuthor
+
+    # user mutations
+    field :create_user, mutation: Mutations::Users::CreateUser
+    field :signin_user, mutation: Mutations::Users::SigninUser
   end
 end

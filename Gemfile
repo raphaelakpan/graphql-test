@@ -14,6 +14,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'graphql'
 gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+gem 'figaro'
 
 group :development, :test do
   gem 'factory_bot_rails'
