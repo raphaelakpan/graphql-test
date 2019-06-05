@@ -9,8 +9,7 @@ class GraphqlController < ApplicationController
     result = GraphqlTestSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e
-    raise e unless Rails.env.development?
-    handle_error_in_development e
+    handle_error e
   end
 
   private
@@ -38,10 +37,16 @@ class GraphqlController < ApplicationController
     end
   end
 
-  def handle_error_in_development(e)
-    logger.error e.message
-    logger.error e.backtrace.join("\n")
+  def handle_error(e)
+    errors = if e.class.to_s.match /ActiveRecord/
+               e.record.errors.full_messages
+             else
+               [e.message]
+             end
 
-    render json: { error: { message: e.message, backtrace: e.backtrace }, data: {} }, status: 500
+    logger.error e.message
+    logger.error e.backtrace[0..5].join("\n")
+
+    render json: { errors: errors, data: {} }, status: 500
   end
 end

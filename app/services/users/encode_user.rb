@@ -21,7 +21,7 @@ module Users
       if @user&.authenticate(@password)
         @token = generate_token
       else
-        raise StandardError.new("Invalid email/password")
+        raise StandardError.new("Invalid email and/or password")
       end
     end
 
