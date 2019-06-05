@@ -38,7 +38,7 @@ class GraphqlController < ApplicationController
   end
 
   def handle_error(e)
-    errors = if e.class.to_s.match /ActiveRecord/
+    errors = if e.try(:record).present?
                e.record.errors.full_messages
              else
                [e.message]

@@ -6,6 +6,7 @@ module Mutations
       argument :name, String, required: true
       argument :email, String, required: true
       argument :password, String, required: true
+      argument :password_confirmation, String, required: true
 
       type Types::Custom::User
 
