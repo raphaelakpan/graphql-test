@@ -16,6 +16,7 @@ gem 'graphql'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'figaro'
+gem 'search_object_graphql'
 
 group :development, :test do
   gem 'factory_bot_rails'
