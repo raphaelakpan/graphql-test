@@ -1,6 +1,6 @@
 require "rails_helper"
 
-module Queries
+module Resolvers
   module Authors
     RSpec.describe Authors, type: :request do
       describe ".resolve" do

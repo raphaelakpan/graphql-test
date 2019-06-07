@@ -1,6 +1,6 @@
-module Queries
+module Resolvers
   module Users
-    class Users < Queries::BaseQuery
+    class Users < Resolvers::BaseResolver
       description "Gets all users"
 
       type [Types::Custom::User], null: false

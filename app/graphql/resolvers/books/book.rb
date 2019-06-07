@@ -1,6 +1,6 @@
-module Queries
+module Resolvers
   module Books
-    class Book < Queries::BaseQuery
+    class Book < Resolvers::BaseResolver
       description "Finds a book by ID"
 
       argument :id, ID, required: true

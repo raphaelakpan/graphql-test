@@ -1,6 +1,6 @@
-module Queries
+module Resolvers
   module Authors
-    class Author < Queries::BaseQuery
+    class Author < Resolvers::BaseResolver
       description "Finds an author by ID"
 
       argument :id, ID, required: true

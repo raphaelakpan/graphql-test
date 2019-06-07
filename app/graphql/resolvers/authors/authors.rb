@@ -1,6 +1,6 @@
-module Queries
+module Resolvers
   module Authors
-    class Authors < Queries::BaseQuery
+    class Authors < Resolvers::BaseResolver
       description "Finds all authors"
 
       type [Types::Custom::Author], null: false

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-module Queries
+module Resolvers
   module Books
     RSpec.describe Books, type: :request do
       describe ".resolve" do

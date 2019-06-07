@@ -1,5 +1,5 @@
-module Queries
-  class BaseQuery < GraphQL::Schema::Resolver
+module Resolvers
+  class BaseResolver < GraphQL::Schema::Resolver
 
     def current_user
       context[:current_user]
