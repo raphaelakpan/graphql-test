@@ -15,10 +15,20 @@ module Resolvers
       type types[Types::Custom::Book]
 
       option :filter, type: BookFilter, with: :apply_filter
+      option :first, type: types.Int, with: :apply_first
+      option :skip, type: types.Int, with: :apply_skip
 
       def apply_filter(scope, value)
         branches = normalize_filters(value).reduce { |a, b| a.or(b) }
         scope.merge(branches)
+      end
+
+      def apply_first(scope, value)
+        scope.limit(value)
+      end
+
+      def apply_skip(scope, value)
+        scope.offset(value)
       end
 
       def normalize_filters(value, branches = [])
@@ -35,7 +45,7 @@ module Resolvers
       end
 
       def get_scope
-        ::Book.all
+        ::Book.all.order(:id).limit(50)
       end
     end
   end
